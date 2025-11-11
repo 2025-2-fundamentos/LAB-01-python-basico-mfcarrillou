@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
 
 def pregunta_08():
     """
@@ -27,3 +28,16 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+    with open('files/input/data.csv', newline='') as file:
+        reader = csv.reader(file, delimiter='\t')
+        column_2_1 = {}
+        for row in reader:
+            number = int(row[1])
+            if number in column_2_1:
+                column_2_1[number].append(row[0])
+            else:
+                column_2_1[number] = [row[0]]
+
+    result = sorted(column_2_1.items())
+
+    return [(number, sorted(set(letters))) for number, letters in result]

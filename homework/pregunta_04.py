@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
 
 def pregunta_04():
     """
@@ -26,3 +27,16 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    with open('files/input/data.csv', newline='') as file:
+        reader = csv.reader(file, delimiter='\t')
+        month_count = {}
+        for row in reader:
+            month = row[2].split('-')[1]
+            if month in month_count:
+                month_count[month] += 1
+            else:
+                month_count[month] = 1
+
+    result = sorted(month_count.items())
+
+    return result

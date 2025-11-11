@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
 
 def pregunta_03():
     """
@@ -15,3 +16,16 @@ def pregunta_03():
     [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
 
     """
+    with open('files/input/data.csv', newline='') as file:
+        reader = csv.reader(file, delimiter='\t')
+        letter_sum = {}
+        for row in reader:
+            letter = row[0]
+            if letter in letter_sum:
+                letter_sum[letter] += int(row[1])
+            else:
+                letter_sum[letter] = int(row[1])
+    
+    result = sorted(letter_sum.items())
+
+    return result

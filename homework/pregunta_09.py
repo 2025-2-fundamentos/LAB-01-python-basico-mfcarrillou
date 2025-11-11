@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+import csv
 
 def pregunta_09():
     """
@@ -24,3 +25,18 @@ def pregunta_09():
      'jjj': 18}}
 
     """
+    with open('files/input/data.csv', newline='') as file:
+        reader = csv.reader(file, delimiter='\t')
+        key_sum = {}
+        for row in reader:
+            keys = row[4].split(',')
+            for key in keys:
+                key_name, key_value = key.split(':')
+                if key_name in key_sum:
+                    key_sum[key_name] += 1
+                else:
+                    key_sum[key_name] = 1
+
+    result = dict(sorted(key_sum.items()))
+
+    return result
